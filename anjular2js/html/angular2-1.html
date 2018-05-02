@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>jquery-animate(动画效果封装)</title>
+</head>
+<style>
+    #show{width: 100px;height: 100px;background-color: #00a8e9;text-align: center;line-height: 100px;}
+    #btn{position: fixed;right: 50px;top: 50px;}
+</style>
+<body>
+<div id="show">封装</div>
+<button id="btn">点击</button>
+<script>
+    //animate动画
+    var fn = new Array();
+    Object.prototype.run = function(element,time){
+            var newpropertys = Object.keys(element);//属性的数组
+            var newvalues = Object.values(element);//结果的数组
+            var movenum = ["marginLeft","marginRight","marginTop","marginBottom","left","right","top","bottom"];//特殊的移动属性值
+
+            for(var i= 0,len = newpropertys.length;i<len;i++){//属性数组的循环
+                var strlen = newpropertys[i].length;
+                var splitstr = "";
+                var charatlen = newpropertys[i].indexOf("-");
+                splitstr = newpropertys[i].replace("-","");
+                if(charatlen<=1){
+                    splitstr = newpropertys[i];
+                }else{
+                    splitstr = newpropertys[i].replace("-","");
+                    lower = splitstr.charAt(charatlen);
+                    upper = splitstr.charAt(charatlen).toUpperCase();
+                    newpropertys[i] = splitstr.replace(lower,upper);
+                }
+                if(typeof newvalues[i] == "number"){
+                    newvalues[i] = newvalues[i] + "px";
+//                    Object.prototype.animate(element,time);
+                    for(var movel= 0,movelen = movenum.length;movel<movelen;movel++){
+                        if(newpropertys[i] == movenum[movel]){
+                            if(this.style[newpropertys[i]] == ""){
+                                this.style[newpropertys[i]] = 0;
+                            }
+                            //轮播开始
+                            var speed = 10,//每次移动间隔的时间
+                                    timer=time,//移动的总时间
+                                    move_len =parseFloat(newvalues[i]) / (timer/speed);//每次移动的距离
+                            var currentresult =parseFloat(this.style[newpropertys[i]]);//获取当前的属性值的距离
+//                            this.style[newpropertys[i]] = currentresult + move_len + "px";
+                            setTimeout(function(){
+                                this.style[newpropertys[i]] = currentresult + move_len + "px";
+                            },speed);
+                            console.log(move_len,currentresult)
+                        }
+                    }
+                }else if(typeof newpropertys[i] == "string"){
+                    newvalues[i] = newvalues[i];
+                    this.style[newpropertys[i]] = newvalues[i];
+                }
+//                this.prototype.lee = function(){
+//                    for(var movel= 0,movelen = movenum.length;movel<movelen;movel++){
+//                        if(newpropertys[i] == movenum[movel]){
+//                            if(this.style[newpropertys[i]] == ""){
+//                                this.style[newpropertys[i]] = 0;
+//                            }
+//                            //轮播开始
+//                            var speed = 10,//每次移动间隔的时间
+//                                    timer=time,//移动的总时间
+//                                    move_len =parseFloat(newvalues[i]) / (timer/speed);//每次移动的距离
+//                            var currentresult =parseFloat(this.style[newpropertys[i]]);//获取当前的属性值的距离
+//                            this.style[newpropertys[i]] = currentresult + move_len + "px";
+////                            setTimeout(lee,speed);
+//                            console.log(move_len,currentresult)
+//                        }
+//                    }
+//                }
+            }
+    }
+//    Object.prototype.animate = function(element,time){
+//        var newpropertys = Object.keys(element);//属性的数组
+//        var newvalues = Object.values(element);//结果的数组
+//        var movenum = ["marginLeft","marginRight","marginTop","marginBottom","left","right","top","bottom"];//特殊的移动属性值
+//        for(var movel= 0,movelen = movenum.length;movel<movelen;movel++){
+//            if(newpropertys[i] == movenum[movel]){
+//                if(this.style[newpropertys[i]] == ""){
+//                    this.style[newpropertys[i]] = 0;
+//                }
+//                //轮播开始
+//                var speed = 10,//每次移动间隔的时间
+//                        timer=time,//移动的总时间
+//                        move_len =parseFloat(newvalues[i]) / (timer/speed);//每次移动的距离
+//                var currentresult =parseFloat(this.style[newpropertys[i]]);//获取当前的属性值的距离
+//                this.style[newpropertys[i]] = currentresult + move_len + "px";
+//                            setTimeout(Object.prototype.animate,speed);
+//                console.log(move_len,currentresult)
+//            }
+//        }
+//    }
+    var num = [1,2,3,4],i=0;
+    var show = document.getElementById("show");
+    var btn = document.getElementById("btn");
+    var obj = {"margin-left":"njm","age":17}
+    btn.onclick = function(){
+        i++;
+        show.run({"margin-left":100,"color":"blue","font-size":25,"background":"deeppink"},1000);
+    }
+
+
+
+
+</script>
+</body>
+</html>

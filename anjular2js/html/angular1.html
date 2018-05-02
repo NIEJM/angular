@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="//apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css">
+<script src="../js/angular.js"></script>
+<!--  <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script> -->
+<!-- <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular-animate.min.js"></script> -->
+<link rel="stylesheet" href="../css/angular.css">
+</head>
+<body style="margin-left: 50px;padding: 100px;">
+<!-- <div ng-app="" ng-init="num=1;price=5">
+	<h3>价格计算器</h3>
+	数量：<input type="number" ng-model="num"><br>
+	价格：<input type="number" ng-model="price"><br>
+	<p>总价为：{{num * price}}</p>
+</div> -->
+
+<!-- <div ng-app="" ng-init="names=[
+	{name:'jon',country:'japan'},
+	{name:'bob',country:'Amerian'},
+	{name:'heny',country:'norway'}
+]">
+<p>循环对象</p>
+<ul>
+	<li ng-repeat="x in names">
+		{{x.name + ',' + x.country}}
+	</li>
+</ul>
+</div> -->
+
+<div ng-app="myApp" ng-controller="myctrl">
+	名：<input type="text" ng-model='firstname'><br>
+	姓：<input type="text" ng-model='lastname'><br>
+	<br>
+	姓名：{{fullname() | lowercase}} <br>
+	当前网址：{{url}} <br>
+	数字为：{{255 | myFormat}}
+	<ul>
+		<li ng-repeat="x in names">
+			{{x.Name + " " + x.Country}}
+		</li>
+	</ul>
+	<select ng-init="selectName = sites[0]"  ng-model="selectName" ng-options="x.site for x in sites"></select><br>
+	你选择的是:{{selectName.site}} <br>
+	你选择的网址是:{{selectName.url}} <br> 
+	
+	<select ng-model="selectcar" ng-init="selectcar=cars.car01" ng-options="x for (x,y) in cars"></select>
+	<h1>你选择的是：{{selectcar.brand}}</h1>
+	<h2>模型：{{selectcar.model}}</h2>
+	<h3>颜色：{{selectcar.color}}</h3>
+
+	<table>
+	  <tr ng-repeat="x in Names | orderBy : 'Country'">
+	  	<td>{{$index + 1}}</td>
+	    <td>{{ x.Name }}</td>
+	    <td>{{ x.Country | uppercase }}</td>
+	  </tr>
+	</table>
+
+	<button ng-click="toggle()">显示/隐藏</button>
+
+	<p ng-show="myVar">
+		名：<input type="text" ng-model="person.firstname"><br>
+		姓：<input type="text" ng-model="person.lastname"><br>
+		姓名：{{person.firstname + person.lastname}}
+	</p>
+
+	Firstname: <br><input type="text" ng-model="user.Firstname"><br>
+	Lastname: <br><input type="text" ng-model="user.Lastname"><br>
+	<button ng-click="reset()">RESET</button>
+	<p>form={{user}}</p>
+	<p>master={{master}}</p>
+	<h3>隐藏DIV：<input type="checkbox" ng-model="mycheck"></h3>
+	<div class="container" ng-hide='mycheck'>
+		<h3>users</h3>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>编辑</th>
+					<th>名</th>
+					<th>姓</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="user in users">
+					<td>
+						<button class="btn" ng-click="editUser(user.id)">
+							<span class="glyphicon glyphicon-pencil">编辑</span>
+						</button>
+					</td>
+					<td>{{user.fName}}</td>
+					<td>{{user.lName}}</td>
+				</tr>
+			</tbody>		
+		</table>
+		<hr>
+		<button class="btn btn-success" ng-click="editUser('new')"><span class="glyphicon glyphicon-user">创建新用户</span></button>
+		<hr>
+		<h3 ng-show="edit">创建新用户：</h3>
+		<h3 ng-hide="edit">编辑用户：</h3>
+		<form class="form-horizontal">
+			  <div class="form-group">
+			    <label class="col-sm-2 control-label">名:</label>
+			    <div class="col-sm-10">
+			    <input type="text" ng-model="fName" ng-disabled="!edit" placeholder="名">
+			    </div>
+			  </div> 
+			  <div class="form-group">
+			    <label class="col-sm-2 control-label">姓:</label>
+			    <div class="col-sm-10">
+			    <input type="text" ng-model="lName" ng-disabled="!edit" placeholder="姓">
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label class="col-sm-2 control-label">密码:</label>
+			    <div class="col-sm-10">
+			    <input type="password" ng-model="passw1" placeholder="密码">
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label class="col-sm-2 control-label">重复密码:</label>
+			    <div class="col-sm-10">
+			    <input type="password" ng-model="passw2" placeholder="重复密码">
+			</div>
+  		</div>
+
+		</form>
+		<hr>
+		<button class="btn btn-success" ng-disabled="error || incomplete">
+		  <span class="glyphicon glyphicon-save"></span> Save Changes
+		</button>
+	</div>
+	<h2>angularjs 简单应用</h2>
+	<p>请输入一个数字: <input type="number" ng-model="number"></p>
+	<button ng-click='squre(number)'>X<sup>2</sup></button>
+	<p>结果为：{{result}}</p>
+</div>
+<!-- <iframe width="100%" height="100%"  frameborder="0" scrolling="no" src="http://liveshare.huya.com/iframe/lck"></iframe> -->
+
+<script src="../js/ngcommon.js"></script>
+<!-- 
+	angluarjs 服务
+	$location $http $timeout $interval 
+	创建自定义服务
+	app.service();
+	爱奇艺，小树>抖音 12306 优酷>微信 短信 
+ -->
+</body>
+</html>

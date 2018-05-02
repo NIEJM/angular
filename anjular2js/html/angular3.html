@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>购物车页面</title>
+	<script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+	<style>
+		table{border-collapse:collapse;}
+		table tr td,th{border:solid 1px red;padding: 5px 30px;}
+		.btn{cursor: pointer;display: inline-block;width: 20px;height: 20px;background: grey;margin-left: 20px;text-align: center;}
+
+	</style>
+</head>
+<body ng-app="myApp" ng-controller="myCtrl"> 
+	<form> 
+		<caption>购物车</caption>
+		<table>
+			<tr>
+				<th>产品</th>
+				<th>数量</th>
+				<th>单价</th>
+				<th>总价</th>
+			</tr>
+			<tr ng-repeat="x in products">
+				<td>{{x.name}} </td>
+				<td>{{num}}<span class="btn" ng-click="num=num+1;sum()">+</span></td>
+				<td>{{x.price}}</td>
+				<td>{{num * x.price}}</td>
+			</tr>
+		</table>
+		<p>总价为：{{money}}</p>
+	</form>
+
+<script>
+var myApp = angular.module('myApp',[]);
+myApp.controller('myCtrl',function($scope){
+	var sum=0;
+	$scope.num=1;
+	$scope.products = [{name:'西瓜',price:5},
+	{name:'苹果',price:6},
+	{name:'桃子',price:4},
+	{name:'榴莲',price:15}];
+
+
+	$scope.sum=function(){
+		
+		for(var i=0;i<$scope.products.length;i++){
+			sum+=$scope.num * $scope.products[i].price;
+		}
+		return sum;
+	}
+	$scope.money = $scope.sum();
+})
+
+</script>
+<script>
+var btns = document.getElementsByClassName('btn');
+console.log(btns.length,btns);
+for(var i=0;i<btns.length;i++){
+	console.log(btns.length);
+}
+
+
+</script>
+</body>
+</html>
